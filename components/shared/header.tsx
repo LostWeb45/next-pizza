@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Container } from "./container";
 import Image from "next/image";
+import { Button } from "../ui";
 
 interface Props {
   className?: string;
@@ -21,6 +22,9 @@ export const Header: React.FC<Props> = ({ className }) => {
             </p>
           </div>
           {/* Правая часть */}
+          <div className="flex items-center gap-3">
+            <Button variant="outline">Войти</Button>
+          </div>
         </div>
       </Container>
     </header>
