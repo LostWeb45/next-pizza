@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Title, FilterCheckbox, RangeSlider } from "./";
+import { Title, FilterCheckbox, RangeSlider, CheckboxGroup } from "./";
 import { Input } from "../ui";
 
 interface Props {
@@ -29,6 +31,28 @@ export const Filters: React.FC<Props> = ({ className }) => {
           />
           <Input type="number" min={100} max={1000} placeholder="1000" />
         </div>
+
+        <CheckboxGroup
+          title="Ингридиенты"
+          className="mt-5"
+          limit={6}
+          defaultItems={[
+            { text: "Сырный соус", value: "1" },
+            { text: "Моцарелла", value: "2" },
+            { text: "Чеснок", value: "3" },
+            { text: "Соленые огурчики", value: "4" },
+            { text: "Красный лук", value: "5" },
+            { text: "Томаты", value: "6" },
+          ]}
+          items={[
+            { text: "Сырный соус", value: "1" },
+            { text: "Моцарелла", value: "2" },
+            { text: "Чеснок", value: "3" },
+            { text: "Соленые огурчики", value: "4" },
+            { text: "Красный лук", value: "5" },
+            { text: "Томаты", value: "6" },
+          ]}
+        />
 
         <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
       </div>
