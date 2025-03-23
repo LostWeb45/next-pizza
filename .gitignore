@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+#mifrations 
+/prisma/migrations
+
 # next.js
 /.next/
 /out/
