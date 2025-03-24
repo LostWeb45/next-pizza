@@ -26,7 +26,6 @@ model User {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    cartId    Int
 }
 
 model Category {
@@ -149,8 +148,9 @@ model VerificationCode {
     user   User @relation(fields: [userId], references: [id])
     userId Int  @unique
 
-    expiresAt DateTime @default(now())
     createdAt DateTime @default(now())
+
+    @@unique([userId, code])
 }
 
 enum OrderStatus {
