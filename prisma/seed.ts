@@ -1,3 +1,4 @@
+import { hashSync } from "bcrypt";
 import { prisma } from "./prisma-client";
 
 async function up() {
@@ -7,20 +8,22 @@ async function up() {
         fullName: "User",
         email: "s2iJL@example.com",
         password: hashSync("123456", 10),
-        verfied: new Date(),
+        verified: new Date(),
         role: "USER",
       },
       {
         fullName: "Admin",
         email: "admin@example.com",
         password: hashSync("123456", 10),
-        verfied: new Date(),
+        verified: new Date(),
         role: "ADMIN",
       },
     ],
   });
 }
-async function down() {}
+async function down() {
+  await prisma.$executeRaw`TRUNCATE TABLE "User" CASCADE;`;
+}
 async function main() {
   try {
     await down();
@@ -29,3 +32,11 @@ async function main() {
     console.error(error);
   }
 }
+
+main()
+  .then(async () => await prisma.$disconnect())
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
