@@ -151,20 +151,25 @@ async function up() {
   });
 }
 async function down() {
+  await prisma.$executeRaw`SET session_replication_role = 'replica';`;
+
+  await prisma.$executeRaw`DELETE FROM "CartItem";`;
+  await prisma.$executeRaw`DELETE FROM "Cart";`;
   await prisma.$executeRaw`DELETE FROM "ProductItem";`;
-  await prisma.$executeRaw`ALTER SEQUENCE "ProductItem_id_seq" RESTART WITH 1;`;
-
   await prisma.$executeRaw`DELETE FROM "Product";`;
-  await prisma.$executeRaw`ALTER SEQUENCE "Product_id_seq" RESTART WITH 1;`;
-
-  await prisma.$executeRaw`DELETE FROM "Category";`;
-  await prisma.$executeRaw`ALTER SEQUENCE "Category_id_seq" RESTART WITH 1;`;
-
   await prisma.$executeRaw`DELETE FROM "Ingredient";`;
-  await prisma.$executeRaw`ALTER SEQUENCE "Ingredient_id_seq" RESTART WITH 1;`;
-
+  await prisma.$executeRaw`DELETE FROM "Category";`;
   await prisma.$executeRaw`DELETE FROM "User";`;
+
+  await prisma.$executeRaw`ALTER SEQUENCE "CartItem_id_seq" RESTART WITH 1;`;
+  await prisma.$executeRaw`ALTER SEQUENCE "Cart_id_seq" RESTART WITH 1;`;
+  await prisma.$executeRaw`ALTER SEQUENCE "ProductItem_id_seq" RESTART WITH 1;`;
+  await prisma.$executeRaw`ALTER SEQUENCE "Product_id_seq" RESTART WITH 1;`;
+  await prisma.$executeRaw`ALTER SEQUENCE "Ingredient_id_seq" RESTART WITH 1;`;
+  await prisma.$executeRaw`ALTER SEQUENCE "Category_id_seq" RESTART WITH 1;`;
   await prisma.$executeRaw`ALTER SEQUENCE "User_id_seq" RESTART WITH 1;`;
+
+  await prisma.$executeRaw`SET session_replication_role = 'origin';`;
 }
 async function main() {
   try {
