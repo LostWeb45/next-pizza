@@ -47,7 +47,7 @@ async function up() {
     data: categories,
   });
 
-  await prisma.ingridient.createMany({
+  await prisma.ingredient.createMany({
     data: ingredients,
   });
 
@@ -61,7 +61,7 @@ async function up() {
       image:
         "https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp",
       categoryId: 1,
-      ingridients: {
+      ingredients: {
         connect: ingredients.slice(0, 5),
       },
     },
@@ -73,7 +73,7 @@ async function up() {
       image:
         "https://media.dodostatic.net/image/r:233x233/11EE7D610CF7E265B7C72BE5AE757CA7.webp",
       categoryId: 1,
-      ingridients: {
+      ingredients: {
         connect: ingredients.slice(5, 10),
       },
     },
@@ -85,7 +85,7 @@ async function up() {
       image:
         "https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp",
       categoryId: 1,
-      ingridients: {
+      ingredients: {
         connect: ingredients.slice(10, 40),
       },
     },
@@ -131,16 +131,40 @@ async function up() {
       generateProductItem({ productId: 17 }),
     ],
   });
+
+  await prisma.cart.createMany({
+    data: [
+      { userId: 1, totlaAmount: 0, token: "testToken" },
+      { userId: 2, totlaAmount: 0, token: "testToken2" },
+    ],
+  });
+
+  await prisma.cartItem.create({
+    data: {
+      cartId: 1,
+      productItemId: 1,
+      quantity: 2,
+      ingredients: {
+        connect: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+      },
+    },
+  });
 }
 async function down() {
-  await prisma.$executeRaw`DELETE FROM "User";`;
-  await prisma.$executeRaw`ALTER SEQUENCE "User_id_seq" RESTART WITH 1;`;
   await prisma.$executeRaw`DELETE FROM "ProductItem";`;
   await prisma.$executeRaw`ALTER SEQUENCE "ProductItem_id_seq" RESTART WITH 1;`;
-  await prisma.$executeRaw`DELETE FROM "Category";`;
-  await prisma.$executeRaw`ALTER SEQUENCE "Category_id_seq" RESTART WITH 1;`;
+
   await prisma.$executeRaw`DELETE FROM "Product";`;
   await prisma.$executeRaw`ALTER SEQUENCE "Product_id_seq" RESTART WITH 1;`;
+
+  await prisma.$executeRaw`DELETE FROM "Category";`;
+  await prisma.$executeRaw`ALTER SEQUENCE "Category_id_seq" RESTART WITH 1;`;
+
+  await prisma.$executeRaw`DELETE FROM "Ingredient";`;
+  await prisma.$executeRaw`ALTER SEQUENCE "Ingredient_id_seq" RESTART WITH 1;`;
+
+  await prisma.$executeRaw`DELETE FROM "User";`;
+  await prisma.$executeRaw`ALTER SEQUENCE "User_id_seq" RESTART WITH 1;`;
 }
 async function main() {
   try {
