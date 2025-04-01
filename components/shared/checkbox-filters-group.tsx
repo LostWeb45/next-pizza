@@ -18,7 +18,7 @@ interface Props {
   className?: string;
 }
 
-export const CheckboxGroup: React.FC<Props> = ({
+export const CheckboxFilterGroup: React.FC<Props> = ({
   title,
   items,
   defaultItems,

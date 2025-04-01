@@ -2,9 +2,10 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Title, FilterCheckbox, RangeSlider, CheckboxGroup } from "./";
+import { Title, FilterCheckbox, RangeSlider } from "./";
 import { Input } from "../ui";
 import { useFilterIngredients } from "@/hooks/useFilterIngredients";
+import { CheckboxFilterGroup } from "./checkbox-filters-group";
 
 interface Props {
   className?: string;
@@ -41,7 +42,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
         </div>
         <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
 
-        <CheckboxGroup
+        <CheckboxFilterGroup
           title="Ингридиенты"
           className="mt-5"
           limit={6}
