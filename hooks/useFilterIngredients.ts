@@ -1,18 +1,28 @@
 import { Api } from "@/services/api-client";
 import { Ingredient } from "@prisma/client";
-import { log } from "console";
 import React from "react";
 
+type IngredientItem = Pick<Ingredient, "id" | "name">;
+
 interface ReturnProps {
-  items: Ingredient[];
+  ingredients: IngredientItem[];
 }
 
 export const useFilterIngredients = (): ReturnProps => {
+  const [ingredients, setIngredients] = React.useState<
+    ReturnProps["ingredients"]
+  >([]);
+
   React.useEffect(() => {
     async function fetchIngredients() {
       try {
-        const ingredients = await Api.ingredients.getAll;
-        return ingredients;
+        const ingredients = await Api.ingredients.getAll();
+        setIngredients(
+          ingredients.map((ingredient) => ({
+            id: ingredient.id,
+            name: ingredient.name,
+          }))
+        );
       } catch (err) {
         console.log(err);
       }
@@ -20,4 +30,6 @@ export const useFilterIngredients = (): ReturnProps => {
 
     fetchIngredients();
   }, []);
+
+  return { ingredients };
 };
