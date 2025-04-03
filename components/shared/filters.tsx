@@ -7,6 +7,8 @@ import { Input } from "../ui";
 import { useFilterIngredients } from "@/hooks/useFilterIngredients";
 import { CheckboxFilterGroup } from "./checkbox-filters-group";
 import { useSet } from "react-use";
+import qs from "qs";
+import { useRouter } from "next/navigation";
 
 interface Props {
   className?: string;
@@ -18,6 +20,7 @@ interface PriceProps {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const router = useRouter();
   const { ingredients, loading, onAddId, selectedIngredients } =
     useFilterIngredients();
 
@@ -44,7 +47,14 @@ export const Filters: React.FC<Props> = ({ className }) => {
   }));
 
   React.useEffect(() => {
-    console.log();
+    const filters = {
+      ...prices,
+      pizzaTypes: Array.from(pizzaTypes),
+      sizes: Array.from(sizes),
+      ingredients: Array.from(selectedIngredients),
+    };
+
+    const queryString = qs.stringify(filters, { arrayFormat: "comma" });
   }, [prices, pizzaTypes, sizes, ingredients, selectedIngredients]);
 
   return (

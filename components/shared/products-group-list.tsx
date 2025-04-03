@@ -22,16 +22,19 @@ export const ProductsGroupList: React.FC<Props> = ({
   className,
 }) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
-  const intersectionRef = React.useRef(null);
-  const intersection = useIntersection(intersectionRef, {
-    threshold: 0.4,
-  });
+  const intersectionRef = React.useRef<HTMLDivElement>(null);
+  const intersection = useIntersection(
+    intersectionRef as React.RefObject<HTMLElement>,
+    {
+      threshold: 0.4,
+    }
+  );
 
   React.useEffect(() => {
     if (intersection?.isIntersecting) {
       setActiveCategoryId(categoryId);
     }
-  }, [intersection?.isIntersecting]);
+  }, [categoryId, intersection?.isIntersecting, setActiveCategoryId]);
 
   React.useEffect(() => {}, []);
 
