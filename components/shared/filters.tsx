@@ -8,7 +8,7 @@ import { useFilterIngredients } from "@/hooks/useFilterIngredients";
 import { CheckboxFilterGroup } from "./checkbox-filters-group";
 import { useSet } from "react-use";
 import qs from "qs";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   className?: string;
@@ -19,7 +19,17 @@ interface PriceProps {
   priceTo?: number;
 }
 
+interface QueryFilters extends PriceProps {
+  pizzaTypes: string;
+  sizes: string;
+  ingredients: string;
+}
+
 export const Filters: React.FC<Props> = ({ className }) => {
+  const searchParams = useSearchParams() as unknown as Map<
+    keyof QueryFilters,
+    string
+  >;
   const router = useRouter();
   const { ingredients, loading, onAddId, selectedIngredients } =
     useFilterIngredients();
@@ -29,7 +39,10 @@ export const Filters: React.FC<Props> = ({ className }) => {
     new Set<string>([])
   );
 
-  const [prices, setPrice] = React.useState<PriceProps>({});
+  const [prices, setPrice] = React.useState<PriceProps>({
+    priceFrom: Number(searchParams.get("priceFrom")) || undefined,
+    priceTo: Number(searchParams.get("priceTo")) || undefined,
+  });
 
   const updatePrice = (name: keyof PriceProps, value: number) => {
     setPrice({
@@ -53,7 +66,9 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
     const query = qs.stringify(filters, { arrayFormat: "comma" });
 
-    router.push(`/?${query}`);
+    router.push(`/?${query}`, {
+      scroll: false,
+    });
   }, [prices, pizzaTypes, sizes, ingredients, selectedIngredients, router]);
 
   return (
