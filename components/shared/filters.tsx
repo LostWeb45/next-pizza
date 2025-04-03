@@ -15,8 +15,8 @@ interface Props {
 }
 
 interface PriceProps {
-  priceFrom: number;
-  priceTo: number;
+  priceFrom?: number;
+  priceTo?: number;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
@@ -29,10 +29,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
     new Set<string>([])
   );
 
-  const [prices, setPrice] = React.useState<PriceProps>({
-    priceFrom: 0,
-    priceTo: 5000,
-  });
+  const [prices, setPrice] = React.useState<PriceProps>({});
 
   const updatePrice = (name: keyof PriceProps, value: number) => {
     setPrice({
@@ -54,8 +51,10 @@ export const Filters: React.FC<Props> = ({ className }) => {
       ingredients: Array.from(selectedIngredients),
     };
 
-    const queryString = qs.stringify(filters, { arrayFormat: "comma" });
-  }, [prices, pizzaTypes, sizes, ingredients, selectedIngredients]);
+    const query = qs.stringify(filters, { arrayFormat: "comma" });
+
+    router.push(`/?${query}`);
+  }, [prices, pizzaTypes, sizes, ingredients, selectedIngredients, router]);
 
   return (
     <div className={cn(className)}>
@@ -111,7 +110,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
           min={0}
           max={1000}
           step={10}
-          value={[prices.priceFrom, prices.priceTo]}
+          value={[prices.priceFrom || 0, prices.priceTo || 1000]}
           onValueChange={([priceFrom, priceTo]) =>
             setPrice({ priceFrom, priceTo })
           }
