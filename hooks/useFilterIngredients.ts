@@ -8,7 +8,7 @@ type IngredientItem = Pick<Ingredient, "id" | "name">;
 interface ReturnProps {
   ingredients: IngredientItem[];
   loading: boolean;
-  selectedIds: Set<string>;
+  selectedIngredients: Set<string>;
   onAddId: (id: string) => void;
 }
 
@@ -41,5 +41,10 @@ export const useFilterIngredients = (): ReturnProps => {
     fetchIngredients();
   }, []);
 
-  return { ingredients, loading, onAddId: toggle, selectedIds };
+  return {
+    ingredients,
+    loading,
+    onAddId: toggle,
+    selectedIngredients: selectedIds,
+  };
 };
