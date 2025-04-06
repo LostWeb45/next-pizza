@@ -1,7 +1,7 @@
-import React from "react";
-import { Filters } from "./use-filters";
-import qs from "qs";
 import { useRouter } from "next/navigation";
+import { Filters } from "./use-filters";
+import QueryString from "qs";
+import React from "react";
 
 export const useQueryFilters = (filters: Filters) => {
   const router = useRouter();
@@ -14,10 +14,11 @@ export const useQueryFilters = (filters: Filters) => {
       ingredients: Array.from(filters.selectedIngredients),
     };
 
-    const query = qs.stringify(params, { arrayFormat: "comma" });
+    const newQuery = QueryString.stringify(params, { arrayFormat: "comma" });
+    const currentQuery = window.location.search.slice(1); // или из Next.js router.query
 
-    router.push(`/?${query}`, {
-      scroll: false,
-    });
+    if (newQuery !== currentQuery) {
+      router.push(`/?${newQuery}`, { scroll: false });
+    }
   }, [filters, router]);
 };

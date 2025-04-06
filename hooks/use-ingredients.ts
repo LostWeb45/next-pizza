@@ -12,12 +12,7 @@ export const useIngredients = () => {
       try {
         setLoading(true);
         const ingredients = await Api.ingredients.getAll();
-        setIngredients(
-          ingredients.map((ingredient) => ({
-            id: ingredient.id,
-            name: ingredient.name,
-          }))
-        );
+        setIngredients(ingredients);
       } catch (err) {
         console.log(err);
       } finally {
