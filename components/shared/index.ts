@@ -7,6 +7,7 @@ export { TopBar } from "./top-bar";
 export { Filters } from "./filters";
 export { FilterCheckbox } from "./filter-checkbox";
 export { RangeSlider } from "./range-slider";
-export { CheckboxGroup } from "./checkbox-filters-group";
+export { CheckboxFilterGroup } from "./checkbox-filters-group";
 export { ProductCard } from "./product-card";
 export { SearchInput } from "./search-input";
+export { ProductImage } from "./product-image";
