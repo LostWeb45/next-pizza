@@ -40,8 +40,6 @@ export default async function Home() {
           <div className="flex-1">
             <div className="flex flex-col gap-16">
               {categories.map((category) => {
-                console.log(category.products);
-
                 return (
                   category.products.length > 0 && (
                     <ProductsGroupList
