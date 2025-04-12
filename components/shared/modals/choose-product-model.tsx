@@ -20,11 +20,15 @@ export const ChooseProductModel: React.FC<Props> = ({ product, className }) => {
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          "p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden",
+          "min-w-[1060px] p-0 min-h-[500px] bg-white overflow-hidden",
           className
         )}
       >
-        {/* <ChoosePizzaForm /> */}
+        <ChoosePizzaForm
+          image={product.image}
+          name={product.name}
+          ingredients={[]}
+        />
       </DialogContent>
     </Dialog>
   );
