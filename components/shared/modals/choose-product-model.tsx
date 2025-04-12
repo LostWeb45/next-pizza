@@ -6,6 +6,7 @@ import { Product } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Title } from "../title";
+import { ChoosePizzaForm } from "../choose-pizza-form";
 
 interface Props {
   product: Product;
@@ -23,7 +24,7 @@ export const ChooseProductModel: React.FC<Props> = ({ product, className }) => {
           className
         )}
       >
-        <Title text={product.name} />
+        {/* <ChoosePizzaForm /> */}
       </DialogContent>
     </Dialog>
   );
