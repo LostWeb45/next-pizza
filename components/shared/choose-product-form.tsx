@@ -15,7 +15,7 @@ interface Props {
   onClickAdd?: VoidFunction;
 }
 
-export const ChoosePizzaForm: React.FC<Props> = ({
+export const ChooseProductForm: React.FC<Props> = ({
   name,
   items,
   image,
