@@ -10,7 +10,7 @@ export { RangeSlider } from "./range-slider";
 export { CheckboxFilterGroup } from "./checkbox-filters-group";
 export { ProductCard } from "./product-card";
 export { SearchInput } from "./search-input";
-export { ProductImage } from "./product-image";
+export { PizzaImage } from "./pizza-image";
 export { GroupVariants } from "./group-variants";
 export { ChooseProductForm } from "./choose-product-form";
 export * from "./modals";

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import React from "react";
+import { PizzaImage } from "./";
 import { Button } from "../ui";
 import { DialogTitle } from "../ui/dialog";
 
@@ -8,27 +9,26 @@ interface Props {
   name: string;
   //   ingredients: IProduct["ingredients"];
   //   items?: IProduct["items"];
+  ingredients: any[];
+  items?: any[];
   className?: string;
   onClickAdd?: VoidFunction;
 }
 
-export const ChooseProductForm: React.FC<Props> = ({
+export const ChoosePizzaForm: React.FC<Props> = ({
   name,
+  items,
   image,
+  ingredients,
   onClickAdd,
   className,
 }) => {
   const textDetails = "30 см, традиционное тесто 30";
   const totlaPrice = "350";
+  const size = 30;
   return (
     <div className={cn("flex flex-1", className)}>
-      <div className="flex items-center justify-center flex-1 relative w-full">
-        <img
-          src={image}
-          alt={name}
-          className="relative left-2 transition-all z-10 duration-300 w-[350px] h-[350px]"
-        />
-      </div>
+      <PizzaImage image={image} size={30} />
 
       <div className="w-[490px] bg-[#f9f8f8] p-7">
         <DialogTitle className="text-[26px] font-extrabold mb-1">
