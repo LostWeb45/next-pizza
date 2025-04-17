@@ -3,7 +3,7 @@ import React from "react";
 import { GroupVariants, PizzaImage } from ".";
 import { Button } from "../ui";
 import { DialogTitle } from "../ui/dialog";
-import { pizzaSizes } from "@/shared/constants/pizza";
+import { PizzaSize, pizzaSizes, PizzaType } from "@/shared/constants/pizza";
 
 interface Props {
   image: string;
@@ -24,9 +24,12 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   onClickAdd,
   className,
 }) => {
+  const [size, setSize] = React.useState<PizzaSize>(20);
+  const [type, setType] = React.useState<PizzaType>(1);
+
   const textDetails = "30 см, традиционное тесто 30";
   const totlaPrice = "350";
-  const size = 30;
+
   return (
     <div className={cn("flex flex-1", className)}>
       <PizzaImage image={image} size={size} />
