@@ -40,7 +40,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         </DialogTitle>
         <p className="text-gray-400">{textDetails}</p>
 
-        <GroupVariants items={pizzaSizes} />
+        <GroupVariants
+          items={pizzaSizes}
+          value={String(size)}
+          onClick={(value) => setSize(Number(value) as PizzaSize)}
+        />
 
         <Button
           //   loading={loading}
