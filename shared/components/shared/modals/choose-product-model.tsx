@@ -29,7 +29,7 @@ export const ChooseProductModel: React.FC<Props> = ({ product, className }) => {
           <ChoosePizzaForm
             image={product.image}
             name={product.name}
-            ingredients={[]}
+            ingredients={product.ingredients}
           />
         ) : (
           <ChooseProductForm image={product.image} name={product.name} />

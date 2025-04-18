@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/utils";
 import React from "react";
-import { GroupVariants, PizzaImage } from ".";
+import { GroupVariants, IngredientItem, PizzaImage } from ".";
 import { Button } from "../ui";
 import { DialogTitle } from "../ui/dialog";
 import {
@@ -10,13 +10,14 @@ import {
   PizzaType,
   pizzaTypes,
 } from "@/shared/constants/pizza";
+import { Ingredient } from "@prisma/client";
 
 interface Props {
   image: string;
   name: string;
   //   ingredients: IProduct["ingredients"];
   //   items?: IProduct["items"];
-  ingredients: any[];
+  ingredients: Ingredient[];
   items?: any[];
   className?: string;
   onClickAdd?: VoidFunction;
@@ -58,6 +59,20 @@ export const ChoosePizzaForm: React.FC<Props> = ({
             value={String(type)}
             onClick={(value) => setType(Number(value) as PizzaType)}
           />
+        </div>
+
+        <div className="bg-gray-50 p-5">
+          <div className="grid grid-cols-3 gap-2">
+            {ingredients.map((ingredient) => (
+              <IngredientItem
+                key={ingredient.id}
+                name={ingredient.name}
+                price={String(ingredient.price)}
+                image={ingredient.image}
+                onClick={onClickAdd}
+              />
+            ))}
+          </div>
         </div>
 
         <Button
