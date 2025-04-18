@@ -3,7 +3,13 @@ import React from "react";
 import { GroupVariants, PizzaImage } from ".";
 import { Button } from "../ui";
 import { DialogTitle } from "../ui/dialog";
-import { PizzaSize, pizzaSizes, PizzaType } from "@/shared/constants/pizza";
+import {
+  mapPizzaType,
+  PizzaSize,
+  pizzaSizes,
+  PizzaType,
+  pizzaTypes,
+} from "@/shared/constants/pizza";
 
 interface Props {
   image: string;
@@ -40,11 +46,19 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         </DialogTitle>
         <p className="text-gray-400">{textDetails}</p>
 
-        <GroupVariants
-          items={pizzaSizes}
-          value={String(size)}
-          onClick={(value) => setSize(Number(value) as PizzaSize)}
-        />
+        <div className="flex flex-col gap-2 mt-3">
+          <GroupVariants
+            items={pizzaSizes}
+            value={String(size)}
+            onClick={(value) => setSize(Number(value) as PizzaSize)}
+          />
+
+          <GroupVariants
+            items={pizzaTypes}
+            value={String(type)}
+            onClick={(value) => setType(Number(value) as PizzaType)}
+          />
+        </div>
 
         <Button
           //   loading={loading}
