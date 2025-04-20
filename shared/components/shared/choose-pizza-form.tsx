@@ -4,13 +4,12 @@ import { GroupVariants, IngredientItem, PizzaImage } from ".";
 import { Button } from "../ui";
 import { DialogTitle } from "../ui/dialog";
 import {
-  mapPizzaType,
   PizzaSize,
   pizzaSizes,
   PizzaType,
   pizzaTypes,
 } from "@/shared/constants/pizza";
-import { Ingredient } from "@prisma/client";
+import { Ingredient, ProductItem } from "@prisma/client";
 import { useSet } from "react-use";
 
 interface Props {
@@ -19,9 +18,9 @@ interface Props {
   //   ingredients: IProduct["ingredients"];
   //   items?: IProduct["items"];
   ingredients: Ingredient[];
-  items?: any[];
+  items: ProductItem[];
   className?: string;
-  onClickAdd?: VoidFunction;
+  onClickAddCart?: VoidFunction;
 }
 
 export const ChoosePizzaForm: React.FC<Props> = ({
@@ -29,7 +28,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   items,
   image,
   ingredients,
-  onClickAdd,
+  onClickAddCart,
   className,
 }) => {
   const [size, setSize] = React.useState<PizzaSize>(20);
@@ -40,7 +39,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
   );
 
   const textDetails = "30 см, традиционное тесто 30";
-  const totlaPrice = "350";
+
+  const pizzaPrice = items.find(
+    (item) => item.pizzaType == type && item.size == size
+  )?.price;
+  const totlaPrice = pizzaPrice;
 
   return (
     <div className={cn("flex flex-1", className)}>

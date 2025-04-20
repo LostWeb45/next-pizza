@@ -30,6 +30,7 @@ export const ChooseProductModel: React.FC<Props> = ({ product, className }) => {
             image={product.image}
             name={product.name}
             ingredients={product.ingredients}
+            items={product.items}
           />
         ) : (
           <ChooseProductForm image={product.image} name={product.name} />
