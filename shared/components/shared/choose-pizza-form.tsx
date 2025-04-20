@@ -4,6 +4,7 @@ import { GroupVariants, IngredientItem, PizzaImage } from ".";
 import { Button } from "../ui";
 import { DialogTitle } from "../ui/dialog";
 import {
+  mapPizzaType,
   PizzaSize,
   pizzaSizes,
   PizzaType,
@@ -38,12 +39,21 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     new Set<number>([])
   );
 
-  const textDetails = "30 см, традиционное тесто 30";
+  const textDetails = `${size} см, ${mapPizzaType[type]} тесто`;
 
   const pizzaPrice = items.find(
     (item) => item.pizzaType == type && item.size == size
-  )?.price;
-  const totlaPrice = pizzaPrice;
+  )!.price;
+  const totalIngredientsPrice = ingredients
+    .filter((ingredient) => selectedIngredients.has(ingredient.id))
+    .reduce((acc, ingredient) => acc + ingredient.price, 0);
+
+  const totlaPrice = pizzaPrice + totalIngredientsPrice;
+
+  const handleClickAdd = () => {
+    onClickAddCart?.();
+    console.log(handleClickAdd);
+  };
 
   return (
     <div className={cn("flex flex-1", className)}>
